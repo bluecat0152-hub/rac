@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로스팅커피협회 | Roasting Coffee Association</title>
+    
+    <!-- 모던 웹디자인의 핵심: Pretendard 폰트 (산세리프) 로드 -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* =========================================
+           SCA 스타일 디자인 시스템 (Variables)
+           ========================================= */
+        :root {
+            --color-black: #000000;
+            --color-white: #ffffff;
+            --color-gray-light: #f4f4f4;
+            --color-gray-dark: #333333;
+            --color-accent: #E31837; /* SCA 스타일의 강렬한 레드 포인트 */
+            
+            --font-main: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+            
+            --border-thin: 1px solid var(--color-black);
+            --border-thick: 3px solid var(--color-black);
+        }
+
+        /* =========================================
+           초기화 및 기본 타이포그래피
+           ========================================= */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            border-radius: 0; /* 모던 미니멀리즘: 둥근 모서리 제거 */
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--color-white);
+            color: var(--color-black);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s ease;
+        }
+
+        ul { list-style: none; }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* =========================================
+           네비게이션 바 (Header)
+           ========================================= */
+        header {
+            position: sticky;
+            top: 0;
+            background-color: var(--color-white);
+            border-bottom: var(--border-thin);
+            z-index: 1000;
+        }
+
+        .top-bar {
+            background-color: var(--color-black);
+            color: var(--color-white);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 8px 0;
+            text-align: right;
+            font-weight: 500;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 90px;
+        }
+
+        .logo a {
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
+        }
+
+        .logo span { color: var(--color-accent); }
+
+        .nav-menu {
+            display: flex;
+            gap: 40px;
+            height: 100%;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            font-size: 15px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            height: 100%;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-item:hover {
+            border-bottom: 3px solid var(--color-accent);
+            color: var(--color-accent);
+        }
+
+        /* 모던 스타일 버튼 */
+        .btn-outline {
+            border: var(--border-thin);
+            background: transparent;
+            color: var(--color-black);
+            padding: 10px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline:hover {
+            background: var(--color-black);
+            color: var(--color-white);
+        }
+
+        .btn-solid {
+            background: var(--color-accent);
+            color: var(--color-white);
+            border: 1px solid var(--color-accent);
+            padding: 12px 32px;
+            font-size: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-solid:hover {
+            background: var(--color-black);
+            border-color: var(--color-black);
+        }
+
+        /* =========================================
+           히어로 섹션 (타이포그래피 중심)
+           ========================================= */
+        .hero {
+            padding: 120px 0;
+            border-bottom: var(--border-thin);
+            background-color: var(--color-gray-light);
+        }
+
+        .hero h1 {
+            font-size: 6vw; /* 화면 크기에 비례하는 거대한 폰트 */
+            font-weight: 900;
+            line-height: 1.05;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            max-width: 1200px;
+        }
+
+        .hero p {
+            font-size: 24px;
+            font-weight: 400;
+            color: var(--color-gray-dark);
+            max-width: 800px;
+            margin-bottom: 50px;
+            line-height: 1.6;
+        }
+
+        /* =========================================
+           공통 섹션 레이아웃
+           ========================================= */
+        .section {
+            padding: 120px 0;
+            border-bottom: var(--border-thin);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 60px;
+            padding-bottom: 20px;
+            border-bottom: var(--border-thick);
+        }
+
+        .section-title {
+            font-size: 48px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+        }
+
+        /* =========================================
+           그리드 및 카드 디자인 (그림자 제거, 선 강조)
+           ========================================= */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .card {
+            border: var(--border-thin);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+            background: var(--color-white);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 15px 15px 0px rgba(0,0,0,0.05); /* 모던 브루탈리즘 솔리드 섀도우 */
+        }
+
+        .card-img {
+            height: 250px;
+            border-bottom: var(--border-thin);
+            overflow: hidden;
+            background: var(--color-gray-light);
+        }
+
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover .card-img img {
+            transform: scale(1.05);
+        }
+
+        .card-content {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-category {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--color-accent);
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .card-title {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            line-height: 1.3;
+            letter-spacing: -0.5px;
+        }
+
+        .card-desc {
+            font-size: 16px;
+            color: var(--color-gray-dark);
+            margin-bottom: 30px;
+            flex-grow: 1;
+        }
+
+        .card-meta {
+            font-size: 13px;
+            font-weight: 600;
+            color: #888;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+            text-transform: uppercase;
+        }
+
+        /* =========================================
+           콜투액션 (CTA) / 멤버십 안내 영역
+           ========================================= */
+        .split-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 600px;
+        }
+
+        .split-content {
+            padding: 100px 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background-color: var(--color-black);
+            color: var(--color-white);
+        }
+
+        .split-content h2 {
+            font-size: 56px;
+            font-weight: 900;
+            margin-bottom: 30px;
+            line-height: 1.1;
+        }
+
+        .split-content p {
+            font-size: 20px;
+            color: #aaa;
+            margin-bottom: 40px;
+        }
+
+        .split-image {
+            background-image: url('https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&q=80&w=1000');
+            background-size: cover;
+            background-position: center;
+            filter: grayscale(100%); /* 모던함을 위한 흑백 처리 */
+            transition: filter 0.5s ease;
+        }
+
+        .split-image:hover {
+            filter: grayscale(0%);
+        }
+
+        /* =========================================
+           관리자 기능 (UI)
+           ========================================= */
+        .admin-fab {
+            display: none;
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 70px;
+            height: 70px;
+            background-color: var(--color-accent);
+            color: var(--color-white);
+            border: none;
+            border-radius: 0; /* 모던 스퀘어 */
+            font-size: 28px;
+            cursor: pointer;
+            z-index: 999;
+            box-shadow: 10px 10px 0px rgba(0,0,0,0.1);
+            transition: all 0.2s ease;
+        }
+
+        .admin-fab:hover {
+            transform: translate(-5px, -5px);
+            box-shadow: 15px 15px 0px rgba(0,0,0,0.2);
+        }
+
+        /* 모달 (날카롭고 깔끔한 형태) */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .modal-box {
+            background: var(--color-white);
+            border: var(--border-thick);
+            width: 100%;
+            max-width: 700px;
+            padding: 50px;
+            box-shadow: 20px 20px 0px rgba(0,0,0,0.1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            border-bottom: var(--border-thin);
+            padding-bottom: 20px;
+        }
+
+        .modal-header h3 {
+            font-size: 28px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .btn-close {
+            background: none;
+            border: none;
+            font-size: 30px;
+            cursor: pointer;
+            color: var(--color-black);
+        }
+
+        .form-group { margin-bottom: 25px; }
+        
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: var(--border-thin);
+            font-family: var(--font-main);
+            font-size: 16px;
+            background: var(--color-gray-light);
+        }
+
+        .form-control:focus {
+            outline: none;
+            background: var(--color-white);
+            border-color: var(--color-accent);
+        }
+
+        /* =========================================
+           푸터
+           ========================================= */
+        footer {
+            background-color: var(--color-black);
+            color: var(--color-white);
+            padding: 100px 0 50px 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 80px;
+        }
+
+        .footer-logo {
+            font-size: 32px;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .footer-info {
+            font-size: 15px;
+            color: #888;
+            line-height: 1.8;
+        }
+
+        .footer-col h4 {
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+            color: var(--color-gray-light);
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a {
+            color: #888;
+            font-size: 15px;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--color-white);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: #666;
+            text-transform: uppercase;
+        }
+        
+        /* 반응형 (간단 처리) */
+        @media (max-width: 1024px) {
+            .grid-container { grid-template-columns: repeat(2, 1fr); }
+            .hero h1 { font-size: 8vw; }
+            .split-section { grid-template-columns: 1fr; }
+            .split-image { height: 400px; }
+        }
+        @media (max-width: 768px) {
+            .grid-container { grid-template-columns: 1fr; }
+            .nav-menu { display: none; /* 모바일 메뉴는 생략 */ }
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 최상단 작은 정보바 -->
+    <div class="top-bar">
+        <div class="container">
+            Advancing the Global Coffee Roasting Standards
+        </div>
+    </div>
+
+    <!-- 네비게이션 헤더 -->
+    <header>
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="#">RCA<span>.</span></a>
+            </div>
+            <nav class="nav-menu">
+                <a href="#" class="nav-item">협회소개</a>
+                <a href="#" class="nav-item">회원안내</a>
+                <a href="#" class="nav-item">교육/인증</a>
+                <a href="#" class="nav-item">비즈니스지원</a>
+                <a href="#" class="nav-item">정보자료실</a>
+                <a href="#" class="nav-item">커뮤니티</a>
+            </nav>
+            <button class="btn-outline" id="loginBtn" onclick="toggleLoginState()">
+                Admin Login
+            </button>
+        </div>
+    </header>
+
+    <!-- 메인 히어로 섹션 -->
+    <section class="hero">
+        <div class="container">
+            <h1>Defining the Future<br>of Coffee Roasting.</h1>
+            <p>로스팅커피협회(RCA)는 대한민국 스페셜티 커피의 품질 기준을 제시하고,<br>전국 로스터들의 기술적 혁신과 비즈니스 성장을 주도합니다.</p>
+            <a href="#" class="btn-solid">Explore Membership</a>
+        </div>
+    </section>
+
+    <!-- 뉴스 및 업데이트 섹션 (콘텐츠가 업로드 되는 곳) -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">News & Insights</h2>
+                <a href="#" style="font-weight: 700; text-transform: uppercase; border-bottom: 2px solid var(--color-black);">View All</a>
+            </div>
+            
+            <div class="grid-container" id="newsGrid">
+                <!-- 카드 1 -->
+                <div class="card">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&q=80&w=600" alt="Roasting">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-category">Technical Report</span>
+                        <h3 class="card-title">2026 에티오피아 뉴크롭 로스팅 프로파일 분석</h3>
+                        <p class="card-desc">올해 입고된 에티오피아 생두의 수분 밀도 데이터를 기반으로 한 최적의 화력 조절 가이드라인을 배포합니다.</p>
+                        <div class="card-meta">May 20, 2026 / By RCA Research</div>
+                    </div>
+                </div>
+
+                <!-- 카드 2 -->
+                <div class="card">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80&w=600" alt="Cafe">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-category">Business Support</span>
+                        <h3 class="card-title">중소 로스터리 스마트스토어 입점 및 물류 가이드</h3>
+                        <p class="card-desc">B2C 원두 판매 확장을 위한 통신판매업 신고부터 택배사 계약까지 실무에 필요한 모든 절차를 안내합니다.</p>
+                        <div class="card-meta">May 15, 2026 / By RCA Business</div>
+                    </div>
+                </div>
+
+                <!-- 카드 3 -->
+                <div class="card">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1507133750040-4a8f57021571?auto=format&fit=crop&q=80&w=600" alt="Cupping">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-category">Education</span>
+                        <h3 class="card-title">제14기 RCA 공식 로스팅 마스터 자격 과정</h3>
+                        <p class="card-desc">현업 최고 수준의 전문가들이 진행하는 강도 높은 실무 교육. 지금 바로 14기 정규 과정에 지원하세요.</p>
+                        <div class="card-meta">May 10, 2026 / By RCA Edu</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 파트너십 / 맵 섹션 -->
+    <section class="split-section">
+        <div class="split-content">
+            <h2>Join the Network.<br>Find the Best.</h2>
+            <p>엄격한 품질 테스트를 통과한 전국 500개 이상의 공식 인증 로스터리 네트워크. 귀하의 로스터리 카페를 협회 지도에 등록하고 소비자들에게 신뢰를 제공하세요.</p>
+            <div>
+                <a href="#" class="btn-solid" style="background: var(--color-white); color: var(--color-black); border-color: var(--color-white);">로스터리 맵 보기</a>
+            </div>
+        </div>
+        <div class="split-image"></div>
+    </section>
+
+    <!-- 플로팅 관리자 업로드 버튼 (모던 스타일) -->
+    <button class="admin-fab" id="adminTrigger" onclick="openModal('uploadModal')">
+        <i class="fa-solid fa-plus"></i>
+    </button>
+
+    <!-- 팝업 모달 (글쓰기 창) -->
+    <div class="modal-overlay" id="uploadModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3>Publish Content</h3>
+                <button class="btn-close" onclick="closeModal('uploadModal')">&times;</button>
+            </div>
+            <form id="uploadForm" onsubmit="handleUpload(event)">
+                <div class="form-group">
+                    <label class="form-label">Category</label>
+                    <select class="form-control" id="postCategory" required>
+                        <option value="Association News">Association News (협회 소식)</option>
+                        <option value="Technical Report">Technical Report (기술 리포트)</option>
+                        <option value="Business Support">Business Support (비즈니스)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Headline</label>
+                    <input type="text" class="form-control" id="postTitle" placeholder="강렬한 제목을 입력하세요" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Cover Image</label>
+                    <select class="form-control" id="postImage">
+                        <option value="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=80&w=600">스페셜티 커피 원두 이미지</option>
+                        <option value="https://images.unsplash.com/photo-1557006021-b85faa2bc5e2?auto=format&fit=crop&q=80&w=600">로스팅 머신 컨트롤 이미지</option>
+                        <option value="https://images.unsplash.com/photo-1559525839-b184a4d698c7?auto=format&fit=crop&q=80&w=600">바리스타 / 추출 이미지</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Summary</label>
+                    <textarea class="form-control" id="postContent" rows="4" placeholder="메인 페이지에 노출될 본문 요약을 작성하세요" required></textarea>
+                </div>
+                <button type="submit" class="btn-solid" style="width: 100%; margin-top: 10px;">PUBLISH NOW</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 푸터 -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-logo">RCA.</div>
+                    <p class="footer-info">
+                        <strong>로스팅커피협회 (Roasting Coffee Association)</strong><br>
+                        서울 강남구 테헤란로 123, RCA빌딩 4층<br>
+                        contact@roasting.coffee | 02-1234-5678<br><br>
+                        Empowering Roasters, Elevating Standards.
+                    </p>
+                </div>
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Membership</a></li>
+                        <li><a href="#">Education</a></li>
+                        <li><a href="#">Resources</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal & Policy</h4>
+                    <ul>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Code of Conduct</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2026 Roasting Coffee Association. All rights reserved.</span>
+                <span>Designed with Modern Minimalism</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 스크립트 -->
+    <script>
+        let isAdminLoggedIn = false;
+
+        function toggleLoginState() {
+            const loginBtn = document.getElementById('loginBtn');
+            const adminTrigger = document.getElementById('adminTrigger');
+
+            if (!isAdminLoggedIn) {
+                // 로그인 상태로 변경
+                isAdminLoggedIn = true;
+                loginBtn.innerHTML = 'Sign Out (Admin)';
+                loginBtn.style.backgroundColor = 'var(--color-black)';
+                loginBtn.style.color = 'var(--color-white)';
+                adminTrigger.style.display = 'block'; 
+            } else {
+                // 로그아웃
+                isAdminLoggedIn = false;
+                loginBtn.innerHTML = 'Admin Login';
+                loginBtn.style.backgroundColor = 'transparent';
+                loginBtn.style.color = 'var(--color-black)';
+                adminTrigger.style.display = 'none';
+            }
+        }
+
+        function openModal(id) {
+            document.getElementById(id).style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // 배경 스크롤 방지
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // 업로드 시물레이션 함수
+        function handleUpload(event) {
+            event.preventDefault();
+            
+            const category = document.getElementById('postCategory').value;
+            const title = document.getElementById('postTitle').value;
+            const imgUrl = document.getElementById('postImage').value;
+            const content = document.getElementById('postContent').value;
+            
+            const newsGrid = document.getElementById('newsGrid');
+            
+            // 모던 스타일 카드 생성
+            const card = document.createElement('div');
+            card.className = 'card';
+            
+            // 오늘 날짜 생성
+            const today = new Date();
+            const dateStr = today.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+            card.innerHTML = `
+                <div class="card-img">
+                    <img src="${imgUrl}" alt="New Upload">
+                </div>
+                <div class="card-content">
+                    <span class="card-category">${category}</span>
+                    <h3 class="card-title">${title}</h3>
+                    <p class="card-desc">${content}</p>
+                    <div class="card-meta">${dateStr} / By RCA Admin</div>
+                </div>
+            `;
+            
+            // 첫 번째 요소로 추가
+            newsGrid.insertBefore(card, newsGrid.firstChild);
+            
+            // 폼 리셋 및 모달 닫기
+            document.getElementById('uploadForm').reset();
+            closeModal('uploadModal');
+        }
+    </script>
+</body>
+</html>
